@@ -76,7 +76,7 @@ def selecionar(file): #Retorna um treino selecionado em formado de uma lista
         # Visualizacao completa
         if chave == 1:
             for i, treino in enumerate(treinos):
-                dados = treino.strip().split(";")
+                dados = treino.strip().split(";") # separa os movimentos do treino
                 if len(treino) >= 4:
                     print(f"Index: {i} ---> Data: {dados[0]} | Tipo: {dados[1]} | Duração: {dados[2]} | Movimentos: {dados[3]}")
             treino_selecionado = treinos[int(input("Digite o index do treino que voce deseja selecionar: "))]
@@ -84,16 +84,13 @@ def selecionar(file): #Retorna um treino selecionado em formado de uma lista
         #Visualizacao por filtro 
         elif chave == 2:
             filtrados = filtro(file)
-            print(treinos)
-            print(filtrados)  # Chama a função filtro
             for i, treino in enumerate(filtrados):
-                treino = treino.strip().split(";")
+                treino = treino.strip().split(";") 
                 if len(treino) >= 4:
                     print(f"Index {i} ---> Data: {treino[0]} | Tipo: {treino[1]} | Duração: {treino[2]} | Movimentos: {treino[3]}")
             treino_selecionado = filtrados[int(input("Selecione o treino de acordo com o index dele:"))]
         else:
             print("O valor digitado nao corresponde as opções acima")
-            return None
         
         return treino_selecionado
     

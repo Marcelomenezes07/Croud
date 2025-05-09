@@ -182,8 +182,3 @@
 #         print("Não foi encontrado nenhum treino com esses filtros")
 #     else:
 #         return filtrado
-
-
-teste = ["oi"]
-print("".join(teste))
-
