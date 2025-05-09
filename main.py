@@ -1,3 +1,4 @@
 file = "treino.txt"
 import funcoes
-print(funcoes.filtro(file))
+
+print(funcoes.selecionar(file))

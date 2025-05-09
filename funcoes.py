@@ -1,5 +1,5 @@
-def filtro(file):  # recebe o caminho do arquivo
-    with open(file, "r") as arquivo:
+def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
+    with open(file, "r",encoding="utf8") as arquivo:
         treinos = [treino.split(";") for treino in arquivo.readlines()] #transforma os treinos em uma lista de treino
     filtrado = treinos  # lista para armazenar os treinos filtrados
     filtros = input("Digite qual o filtro você deseja usar para buscar o treino:\n1. Data\n2. Tipo\n3. Duração\n4. Movimento\n").strip().replace(" ","").split(",")
@@ -11,8 +11,6 @@ def filtro(file):  # recebe o caminho do arquivo
             data = input("Digite a data do treino (ex: 20/04): ").strip()
             filtrado = [treino for treino in filtrado if treino[0] == data]
         
-        
-
         # Filtro por Tipo
         elif filtro == "2":
             tipo = input("Digite o tipo do treino (ex: perna, ombros...): ").strip().lower()
@@ -48,13 +46,63 @@ def filtro(file):  # recebe o caminho do arquivo
         elif filtro == "4":
             movimento_buscado = input("Digite o movimento que você deseja encontrar: ").strip().lower()
             for treino in filtrado:
-                for movimento in treino:
+                movimentos = treino[3].split(",")
+                movimentos = [movimento.strip()for movimento in movimentos]
+                for movimento in movimentos:
+                    print(movimento)
                     if movimento_buscado == movimento:
                         filtro_temporario.append(treino)
             filtrado = filtro_temporario
         else:
             print("Filtro não encontrado!")
+    
     if filtrado == []:
         print("Não foi encontrado nenhum treino com esses filtros")
     else:
-        return filtrado
+        #como os treinos tavam em formato de lista, separando cada campo como um intem da lista, eu to colocando cada treino como um unico elemento da lista
+        filtrado = [";".join(treino) for treino in filtrado] 
+        return filtrado 
+
+
+
+
+
+def selecionar(file): #Retorna um treino selecionado em formado de uma lista
+    try:
+        with open(file, "r", encoding="utf8") as arquivo:
+            treinos = arquivo.readlines()
+
+        chave = int(input(f"Digite:\n1-Para visualizar todos os treinos\n2-Para buscar o treino usando filtro:\n"))
+        # Visualizacao completa
+        if chave == 1:
+            for i, treino in enumerate(treinos):
+                dados = treino.strip().split(";")
+                if len(treino) >= 4:
+                    print(f"Index: {i} ---> Data: {dados[0]} | Tipo: {dados[1]} | Duração: {dados[2]} | Movimentos: {dados[3]}")
+            treino_selecionado = treinos[int(input("Digite o index do treino que voce deseja selecionar: "))]
+        
+        #Visualizacao por filtro 
+        elif chave == 2:
+            filtrados = filtro(file)
+            print(treinos)
+            print(filtrados)  # Chama a função filtro
+            for i, treino in enumerate(filtrados):
+                treino = treino.strip().split(";")
+                if len(treino) >= 4:
+                    print(f"Index {i} ---> Data: {treino[0]} | Tipo: {treino[1]} | Duração: {treino[2]} | Movimentos: {treino[3]}")
+            treino_selecionado = filtrados[int(input("Selecione o treino de acordo com o index dele:"))]
+        else:
+            print("O valor digitado nao corresponde as opções acima")
+            return None
+        
+        return treino_selecionado
+    
+    except ValueError:
+        print("O valor que voce digitou não é valido")
+    except IndexError: 
+        print("O índice digitado não foi encontrado")
+
+
+
+
+
