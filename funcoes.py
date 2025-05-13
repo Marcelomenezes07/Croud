@@ -15,7 +15,7 @@ def ver_wod():
             print("nao possui treinos")
             return
         for i, linha in enumerate(linhas):
-            partes = linha.split(",").strip()  # divide
+            partes = linha.strip().split(", ")  # divide
             d = partes[0]
             t = partes[1]
             dur = partes[2]
@@ -107,7 +107,23 @@ def adicionar_meta():
         f.write(f"{obj},{prazo},{status}\n")
 
     print("sua meta foi adicionada")
+def ver_meta():
+    try:
+        with open("meta.txt", "r", encoding="utf-8") as f:  # faz a leitura do arquivo
+            linhas = f.readlines()  # conta quantas linhas possuem no arquivo
+        if len(linhas) == 0:
+            print("nao possui metas")
+            return
+        for i, linha in enumerate(linhas):
+            partes = linha.strip().split(", ")  # divide
+            obj = partes[0]
+            prazo = partes[1]
+            status = partes[2]
+           
 
+            print(f"{i+1}. {obj}; {prazo}; {status};\n")
+    except FileNotFoundError:
+        print("arquivo não encontrado")
         
 
 def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
