@@ -98,6 +98,16 @@ def excluir_wod():
         print("arquivo não encontrado")
     except ValueError:
         print("entrada inválida")
+def adicionar_meta():
+    obj = input("digite a meta desejada: ")
+    prazo = input("digite o prazo (DD/MM/AAAA) para concluir a meta: ")
+    status = "em andamento"
+
+    with open("metas.txt", "a", encoding="utf-8") as f:
+        f.write(f"{obj},{prazo},{status}\n")
+
+    print("sua meta foi adicionada")
+
         
 
 def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
