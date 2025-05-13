@@ -7,6 +7,63 @@ def adicionar_wod():
         f.write(f"{d};{t};{dur};{mov}\n")
     print("Treino adicionado com sucesso!")
 
+def ver_wod():
+    try:
+        with open("treino.txt", "r", encoding="utf-8") as f:  # faz a leitura do arquivo
+            linhas = f.readlines()  # conta quantas linhas possuem no arquivo
+        if len(linhas) == 0:
+            print("Não existem WODs cadastrados.")
+            return
+        for i, linha in enumerate(linhas):
+            partes = linha.split(",").strip()  # divide
+            d = partes[0]
+            t = partes[1]
+            dur = partes[2]
+            mov = ", ".join(partes[3:])
+
+            print(f"{i+1}. {d}; {t}; {dur}; {mov}\n")
+    except FileNotFoundError:
+        print("Arquivo de WODs não encontrado!")
+
+
+def editar_wod():
+    try:
+        with open("wods.csv", "r", encoding="utf-8") as f:
+            linhas = f.readlines()
+        if len(linhas) == 0:
+            print("não existem WODs cadastrados")
+            return
+
+        for i, linha in enumerate(linhas):
+            dados = linha.strip().split(",")
+            d, t, dur = dados[0], dados[1], dados[2]
+            mov = ", ".join(dados[3:])
+            print(
+                f"{i+1}. Data: {d} | Tipo: {t} | Duração: {dur}min | Movimentos: {mov}")
+
+        num_troca = int(input("Qual o número do WOD que deseja trocar? ")) -1
+
+        if num_troca < 0 or num_troca >= len(linhas):
+            print("Número inválido.")
+            return
+
+        nd = input("digite a nova data: ")
+        nt = input("digite o novo tipo: ")
+        ndur = input("digite a nova duração: ")
+        nmov = input("digite os novos movimentos (separados por vírgula): ")
+
+        nova_linha = f"{nd},{nt},{ndur},{nmov}\n"
+        linhas[num_troca] = nova_linha
+
+        with open("wods.csv", "w", encoding="utf-8") as f:
+            f.writelines(linhas)
+        print("WOD editado com sucesso")
+
+    except FileNotFoundError:
+        print("erro")
+    except ValueError:
+        print("invalido")
+
 
 
 
