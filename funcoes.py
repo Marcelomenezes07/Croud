@@ -1,3 +1,46 @@
+def adicionar_wod():
+    d = input("Data (DD/MM/AAAA): ")
+    t = input("Tipo (AMRAP/EMOM/For Time): ")
+    dur = input("Duração (min): ")
+    mov = input("Movimentos (vírgula): ")
+    with open("treino.txt", "a", encoding="utf-8") as f:  # adiciona no wods.csv os inputs acima
+        f.write(f"{d};{t};{dur};{mov}\n")
+    print("Treino adicionado com sucesso!")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
     with open(file, "r",encoding="utf8") as arquivo:
         treinos = [treino.split(";") for treino in arquivo.readlines()] #transforma os treinos em uma lista de treino
