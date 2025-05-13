@@ -12,7 +12,7 @@ def ver_wod():
         with open("treino.txt", "r", encoding="utf-8") as f:  # faz a leitura do arquivo
             linhas = f.readlines()  # conta quantas linhas possuem no arquivo
         if len(linhas) == 0:
-            print("Não existem WODs cadastrados.")
+            print("nao possui treinos")
             return
         for i, linha in enumerate(linhas):
             partes = linha.split(",").strip()  # divide
@@ -23,7 +23,7 @@ def ver_wod():
 
             print(f"{i+1}. {d}; {t}; {dur}; {mov}\n")
     except FileNotFoundError:
-        print("Arquivo de WODs não encontrado!")
+        print("arquivo não encontrado")
 
 
 def editar_wod():
@@ -41,9 +41,9 @@ def editar_wod():
             print(
                 f"{i+1}. Data: {d} | Tipo: {t} | Duração: {dur}min | Movimentos: {mov}")
 
-        num_troca = int(input("Qual o número do WOD que deseja trocar? ")) -1
+        n_tro = int(input("Qual o número do WOD que deseja trocar? ")) -1
 
-        if num_troca < 0 or num_troca >= len(linhas):
+        if n_tro < 0 or n_tro >= len(linhas):
             print("Número inválido.")
             return
 
@@ -53,16 +53,16 @@ def editar_wod():
         nmov = input("digite os novos movimentos (separados por vírgula): ")
 
         nova_linha = f"{nd},{nt},{ndur},{nmov}\n"
-        linhas[num_troca] = nova_linha
+        linhas[n_tro] = nova_linha
 
         with open("treino.txt", "w", encoding="utf-8") as f:
             f.writelines(linhas)
         print("WOD editado com sucesso")
 
     except FileNotFoundError:
-        print("erro")
+        print("arquivo não encontrado")
     except ValueError:
-        print("invalido")
+        print("digite um numero")
 def excluir_wod():
     try:
         with open("treino.txt", "r", encoding="utf-8") as f:
