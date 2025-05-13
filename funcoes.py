@@ -63,40 +63,42 @@ def editar_wod():
         print("erro")
     except ValueError:
         print("invalido")
+def excluir_wod():
+    try:
+        with open("treino.txt", "r", encoding="utf-8") as f:
+            linhas = f.readlines()
 
+        if len(linhas) == 0:
+            print("não existem wods.")
+            return
 
+       
+        for i, linha in enumerate(linhas):
+            partes = linha.strip().split(",")
+            d = partes[0]
+            t = partes[1]
+            dur = partes[2]
+            mov = ", ".join(partes[3:])
+            print(f"{i+1}. data: {d} ; tipo: {t} ; duração: {dur}min ; movimentos: {mov}")
 
+        
+        n_exc = int(input("Digite o número do WOD que deseja excluir: ")) - 1
 
+        if n_exc < 0 or n_exc >= len(linhas):
+            print("digite outro numero")
+            return
 
+        linhas.pop(n_exc)
+        with open("treino.txt", "w", encoding="utf-8") as f:
+            f.writelines(linhas)
 
+        print("o treino selecionado foi excluido")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    except FileNotFoundError:
+        print("arquivo não encontrado")
+    except ValueError:
+        print("entrada inválida")
+        
 
 def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
     with open(file, "r",encoding="utf8") as arquivo:
