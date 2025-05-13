@@ -28,7 +28,7 @@ def ver_wod():
 
 def editar_wod():
     try:
-        with open("wods.csv", "r", encoding="utf-8") as f:
+        with open("treino.txt", "r", encoding="utf-8") as f:
             linhas = f.readlines()
         if len(linhas) == 0:
             print("não existem WODs cadastrados")
@@ -55,7 +55,7 @@ def editar_wod():
         nova_linha = f"{nd},{nt},{ndur},{nmov}\n"
         linhas[num_troca] = nova_linha
 
-        with open("wods.csv", "w", encoding="utf-8") as f:
+        with open("treino.txt", "w", encoding="utf-8") as f:
             f.writelines(linhas)
         print("WOD editado com sucesso")
 
