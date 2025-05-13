@@ -1,11 +1,11 @@
 def adicionar_wod():
     d = input("Data (DD/MM/AAAA): ")
-    t = input("Tipo (AMRAP/EMOM/For Time): ")
-    dur = input("Duração (min): ")
-    mov = input("Movimentos (vírgula): ")
+    t = input("Tipo do treino: ")
+    dur = input("Duração em min: ")
+    mov = input("Movimentos: ")
     with open("treino.txt", "a", encoding="utf-8") as f:  # adiciona no wods.csv os inputs acima
         f.write(f"{d};{t};{dur};{mov}\n")
-    print("Treino adicionado com sucesso!")
+    print("treino adicionado com sucesso!")
 
 def ver_wod():
     try:
@@ -31,7 +31,7 @@ def editar_wod():
         with open("treino.txt", "r", encoding="utf-8") as f:
             linhas = f.readlines()
         if len(linhas) == 0:
-            print("não existem WODs cadastrados")
+            print("não existem treinos cadastrados")
             return
 
         for i, linha in enumerate(linhas):
@@ -39,12 +39,12 @@ def editar_wod():
             d, t, dur = dados[0], dados[1], dados[2]
             mov = ", ".join(dados[3:])
             print(
-                f"{i+1}. Data: {d} | Tipo: {t} | Duração: {dur}min | Movimentos: {mov}")
+                f"{i+1}. data: {d} ; tipo: {t} ; duração: {dur}min ; movimentos: {mov}")
 
-        n_tro = int(input("Qual o número do WOD que deseja trocar? ")) -1
+        n_tro = int(input("qual o número do treino que deseja trocar? ")) -1
 
         if n_tro < 0 or n_tro >= len(linhas):
-            print("Número inválido.")
+            print("digite outro numero")
             return
 
         nd = input("digite a nova data: ")
@@ -57,7 +57,7 @@ def editar_wod():
 
         with open("treino.txt", "w", encoding="utf-8") as f:
             f.writelines(linhas)
-        print("WOD editado com sucesso")
+        print("wod editado com sucesso")
 
     except FileNotFoundError:
         print("arquivo não encontrado")
@@ -69,7 +69,7 @@ def excluir_wod():
             linhas = f.readlines()
 
         if len(linhas) == 0:
-            print("não existem wods.")
+            print("não existem wods")
             return
 
        
