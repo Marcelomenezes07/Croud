@@ -242,7 +242,33 @@ def selecionar(file): #Retorna um treino selecionado em formado de uma lista
         print("O valor que voce digitou não é valido")
     except IndexError: 
         print("O índice digitado não foi encontrado")
+def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de acordo com o tipo escolhido pelo usuario.
+    try:
+        def sorteio(exercicios_salvos):
+            if len(exercicios_salvos) > 3:
+                selecionados = []
+                for _ in range(3):  # Seleciona 3 aleatórios sem repetição
+                    indice = random.randint(0, len(exercicios_salvos) - 1)
+                    selecionados.append(exercicios_salvos.pop(indice))
+                return selecionados
+            else:
+                return exercicios_salvos
 
+
+        # 0 - ombro/ 1- Peito/ 2- costas/ 3- braço/ 4-pernas
+        sugestoes = [["desenvolvimento","elevação lateral", "elevação frontal","Crucifixo inverso","Remada Alta","Pulley Articulado"],["supino reto","supino inclinado","Crucifixo reto","Crossover","Banch press","Crucifixo inclinado"],["remada alta","puxada","pulldown","Remada baixa", "Remada curvada","Levantamento terra"],["Rosca","Triceps Françês","Triceps na corda","Rosca Scott","Triceps testa","Mergulho"],["leg press", "agachamento livre", "agachamento com barra","flexora","Abdutora","adutora"]]
+        
+        
+        print("Digite o treino que voce quer fazer:\n1- Ombro\n2- Peito\n3- costas\n4- Braço\n5- Pernas")
+        opcao = int(input("Digite o numero que corresponde a opcao: ")) -1
+        
+        if 0 <= opcao < len(sugestoes): 
+            print(sorteio(sugestoes[opcao]))
+        else: 
+            print("Voce nao inseriu uma opção válida")
+    except ValueError:
+        print("Digite um número!")
+        
 
 
 
