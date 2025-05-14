@@ -7,7 +7,7 @@ def adicionar_wod():
     mov = input("Movimentos: ")
     with open("treino.txt", "a", encoding="utf-8") as f:  # adiciona no wods.csv os inputs acima
         f.write(f"{d};{t};{dur};{mov}\n")
-    print("treino adicionado com sucesso!")
+    print("treino adicionado com sucesso!")
 
 
 def ver_wod():
@@ -18,7 +18,7 @@ def ver_wod():
             print("nao possui treinos")
             return
         for i, linha in enumerate(linhas):
-            partes = linha.strip().split(", ")  # divide
+            partes = linha.strip().split(";")  # divide
             d = partes[0]
             t = partes[1]
             dur = partes[2]
@@ -38,7 +38,7 @@ def editar_wod():
             return
 
         for i, linha in enumerate(linhas):
-            dados = linha.strip().split(",")
+            dados = linha.strip().split(";")
             d, t, dur = dados[0], dados[1], dados[2]
             mov = ", ".join(dados[3:])
             print(
@@ -80,7 +80,7 @@ def excluir_wod():
 
        
         for i, linha in enumerate(linhas):
-            partes = linha.strip().split(",")
+            partes = linha.strip().split(";")
             d = partes[0]
             t = partes[1]
             dur = partes[2]
@@ -125,7 +125,7 @@ def ver_meta():
             print("nao possui metas")
             return
         for i, linha in enumerate(linhas):
-            partes = linha.strip().split(", ")  # divide
+            partes = linha.strip().split(";")  # divide
             obj = partes[0]
             prazo = partes[1]
             status = partes[2]
@@ -237,9 +237,30 @@ def selecionar(file): #Retorna um treino selecionado em formado de uma lista
 
 
 
-def sugestao_aleatoria():
-    # 0 - ombro/ 1- Peito/ 2- costas/ 3- braço/ 4-pernas
-    sugestoes = [["desenvolvimento","elevação lateral", "elevação frontal","Crucifixo inverso","Remada Alta","Pulley Articulado"],["supino reto","supino inclinado","Crucifixo reto","Crossover","Banch press","Crucifixo inclinado"],["remada alta","puxada","pulldown","Remada baixa", "Remada curvada","Levantamento terra"],["Rosca","Triceps Françês","Triceps na corda","Rosca Scott","Triceps testa","Mergulho"],["leg press", "agachamento livre", "agachamento com barra","flexora","Abdutora","adutora"]]
-    
-    print("Digite o treino que voce quer fazer:\n0- Ombro\n1- Peito\n2- costas\n3- Braço\n4- Pernas")
-    
+def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de acordo com o tipo escolhido pelo usuario.
+    try:
+        def sorteio(exercicios_salvos):
+            if len(exercicios_salvos) > 3:
+                selecionados = []
+                for _ in range(3):  # Seleciona 3 aleatórios sem repetição
+                    indice = random.randint(0, len(exercicios_salvos) - 1)
+                    selecionados.append(exercicios_salvos.pop(indice))
+                return selecionados
+            else:
+                return exercicios_salvos
+
+
+        # 0 - ombro/ 1- Peito/ 2- costas/ 3- braço/ 4-pernas
+        sugestoes = [["desenvolvimento","elevação lateral", "elevação frontal","Crucifixo inverso","Remada Alta","Pulley Articulado"],["supino reto","supino inclinado","Crucifixo reto","Crossover","Banch press","Crucifixo inclinado"],["remada alta","puxada","pulldown","Remada baixa", "Remada curvada","Levantamento terra"],["Rosca","Triceps Françês","Triceps na corda","Rosca Scott","Triceps testa","Mergulho"],["leg press", "agachamento livre", "agachamento com barra","flexora","Abdutora","adutora"]]
+        
+        
+        print("Digite o treino que voce quer fazer:\n1- Ombro\n2- Peito\n3- costas\n4- Braço\n5- Pernas")
+        opcao = int(input("Digite o numero que corresponde a opcao: ")) -1
+        
+        if 0 <= opcao < len(sugestoes): 
+            print(sorteio(sugestoes[opcao]))
+        else: 
+            print("Voce nao inseriu uma opção válida")
+    except ValueError:
+        print("Digite um número!")
+        

@@ -1,4 +1,3 @@
-file = "treino.txt"
-import funcoes
+#Funcoes criadas - Arquivo de treinos
+import funcoes   ; file = "treino.txt" 
 
-print(funcoes.selecionar(file))
