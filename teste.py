@@ -182,4 +182,60 @@
 #         print("Não foi encontrado nenhum treino com esses filtros")
 #     else:
 #         return filtrado
-print("Beno")
+
+
+# def atualizar_meta():
+#     try:
+#         with open("metas.txt", "r", encoding="utf-8") as f:
+#             metas = f.readlines()
+
+#         if not metas:
+#             print("Não há metas para atualizar.")
+#             return
+
+#         print("Metas atuais:")
+#         for i, linha in enumerate(metas):
+#             partes = linha.strip().split(",")
+#             if len(partes) == 3:
+#                 print(f"{i+1}. {linha.strip()}")
+#             else:
+#                 print(f"{i+1}. [Formato inválido]")
+
+#         escolha = int(input("Digite o número da meta que deseja atualizar: ")) - 1
+
+#         if escolha < 0 or escolha >= len(metas):
+#             print("Número inválido.")
+#             return
+
+#         partes = metas[escolha].strip().split(",")
+#         if len(partes) != 3:
+#             print("Formato inválido da meta.")
+#             return
+
+#         objetivo, prazo, _ = partes
+
+#         print("Escolha o novo status da meta:")
+#         print("1 - em andamento\n2 - concluída\n3 - cancelada")
+#         status_opcao = input("Digite o número correspondente: ").strip()
+
+#         if status_opcao == "1":
+#             novo_status = "\033[33mem andamento\033[0m"  # amarelo
+#         elif status_opcao == "2":
+#             novo_status = "\033[32mconcluída\033[0m"     # verde
+#         elif status_opcao == "3":
+#             novo_status = "\033[31mcancelada\033[0m"     # vermelho
+#         else:
+#             print("Opção inválida.")
+#             return
+
+#         metas[escolha] = f"{objetivo},{prazo},{novo_status}\n"
+
+#         with open("metas.txt", "w", encoding="utf-8") as f:
+#             f.writelines(metas)
+
+#         print("Status da meta atualizado com sucesso!")
+
+#     except FileNotFoundError:
+#         print("Arquivo 'metas.txt' não encontrado.")
+#     except ValueError:
+#         print("Entrada inválida. Por favor, digite um número válido.")
