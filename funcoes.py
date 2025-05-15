@@ -139,7 +139,8 @@ def frase_motivacional():
 
     except FileNotFoundError:
         print("arquivo frases.txt não encontrado")
-
+def atualizar_meta():
+    
         
 
 def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
