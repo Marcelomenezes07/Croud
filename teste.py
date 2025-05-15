@@ -182,4 +182,3 @@
 #         print("Não foi encontrado nenhum treino com esses filtros")
 #     else:
 #         return filtrado
-print ('lucca')
