@@ -1,3 +1,4 @@
-20/04;perna;45;agachamento, leg press
 21/04;ombros;30;elevação lateral, desenvolvimento
 22/04;costas;50;puxada alta, remada
+16/05;braços;80;supino reto, supino inclinado
+30/06;peito;20;supino inclinado, crucifixo

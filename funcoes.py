@@ -1,7 +1,6 @@
 import random
 
 
-
 def adicionar_wod():
     d = input("Data (DD/MM/AAAA): ")
     t = input("Tipo do treino: ")
@@ -35,14 +34,8 @@ def editar_wod():
             print("não existem treinos cadastrados")
             return
 
-        for i, linha in enumerate(linhas):
-            dados = linha.strip().split(",")
-            d, t, dur = dados[0], dados[1], dados[2]
-            mov = ", ".join(dados[3:])
-            print(
-                f"{i+1}. data: {d} ; tipo: {t} ; duração: {dur}min ; movimentos: {mov}")
-
-        n_tro = int(input("qual o número do treino que deseja trocar? ")) -1
+        
+        n_tro = linhas.index(selecionar())
 
         if n_tro < 0 or n_tro >= len(linhas):
             print("digite outro numero")
@@ -53,7 +46,7 @@ def editar_wod():
         ndur = input("digite a nova duração: ")
         nmov = input("digite os novos movimentos (separados por vírgula): ")
 
-        nova_linha = f"{nd},{nt},{ndur},{nmov}\n"
+        nova_linha = f"{nd};{nt};{ndur};{nmov}\n"
         linhas[n_tro] = nova_linha
 
         with open("treino.txt", "w", encoding="utf-8") as f:
@@ -77,7 +70,7 @@ def excluir_wod():
 
        
         for i, linha in enumerate(linhas):
-            partes = linha.strip().split(",")
+            partes = linha.strip().split(";")
             d = partes[0]
             t = partes[1]
             dur = partes[2]
@@ -274,6 +267,5 @@ def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de aco
     except ValueError:
         print("Digite um número!")
         
-
 
 
