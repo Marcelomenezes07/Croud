@@ -140,6 +140,41 @@ def frase_motivacional():
     except FileNotFoundError:
         print("arquivo frases.txt não encontrado")
 def atualizar_meta():
+    try:
+        with open("metas.txt", "r", encoding="utf-8") as f:
+            linhas = f.readlines()
+
+        if len(linhas) == 0:
+            print("Não existem metas cadastradas.")
+            return
+
+        for i, linha in enumerate(linhas):
+            dados = linha.strip().split(",")
+            obj, prazo, status = dados[0], dados[1], dados[2]
+            print(f"{i+1}. Meta: {obj}; Prazo: {prazo}; Status: {status}")
+
+        num_at = int(input("Qual meta você quer marcar como concluída?: ")) - 1
+
+        if num_at < 0 or num_at >= len(linhas):
+            print("Número inválido.")
+            return
+
+        dados = linhas[num_at].strip().split(",")
+
+        obj, prazo = dados[0], dados[1]
+        novo_status = "Concluido"
+        linhas[num_at] = f"{obj},{prazo},{novo_status}\n"
+
+        with open("metas.txt", "w", encoding="utf-8") as f:
+            f.writelines(linhas)
+
+        print("Meta atualizada com sucesso!")
+
+    except FileNotFoundError:
+        print("'metas.txt' não encontrado.")
+    except ValueError:
+        print("digite um número.")
+
     
         
 
