@@ -1,11 +1,18 @@
-import os ; os.system('cls')
+import os; os.system('cls')
 
-#Funcoes criadas - Arquivo de treinos
-import funcoes   ; file = "treino.txt" 
+#Funcoes criadas -  parte grafica -  Arquivo de treinos
+import funcoes ; import interface ; file = "treino.txt" 
+formato =  { 
+    "negrito" : "\033[1m",
+    "padrao" : "\033[0m",
+}   
+
+interface.inicio()
 while True:
-
+    #Placa do menu 
+    interface.exibir_menu()
     #menu de opções
-    print("1-Adicionar wod\n2-Ver Wod\n3-Editar Wod\n4-Excluir Wod\n5-filtrar wod\n6-Adicionar metas\n7-Ver Metas\n8-Atualizar metas\n9-Sugestao de wod aleatorio\n10- Frases Motivacionais para treinar inspirado\n0- Para sair do programa")
+    print("\n1-Adicionar wod\n2-Ver Wod\n3-Editar Wod\n4-Excluir Wod\n5-filtrar wod\n6-Adicionar metas\n7-Ver Metas\n8-Atualizar metas\n9-Sugestao de wod aleatorio\n10- Frases Motivacionais para treinar inspirado\n0- Para sair do programa")
     try: 
         opcao = int(input("Digite o que voce vai querer fazer: "))
     except ValueError:
@@ -13,50 +20,71 @@ while True:
         continue
     match opcao:
         case 1: 
-            print("Você escolheu adicionar Wod")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu adicionar Wod\n{formato['padrao']}")
             funcoes.adicionar_wod()
+            input("Pressione enter para voltar para o menu\n")
 
         case 2:
-            print("Você escolheu ver Wod")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu ver wod\n{formato['padrao']}")
             funcoes.ver_wod()
+            input("Pressione enter para voltar para o menu\n")
 
         case 3:
-            print("Você escolheu Editar Wod")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu editar Wod{formato['padrao']}")
             funcoes.editar_wod()
+            input("Pressione enter para voltar para o menu\n")
 
         case 4:
-            print("Você escolheu excluir Wod")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu excluir Wod{formato['padrao']}")
             funcoes.excluir_wod()
+            input("Pressione enter para voltar para o menu\n")
 
         case 5:
-            print("Você escolheu Filtrar Wod")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu filtrar Wods{formato['padrao']}")
             resultado = funcoes.filtro()
             if resultado: funcoes.exibir(resultado)
+            input("Pressione enter para voltar para o menu\n")
 
         case 6:
-            print("Você escolheu adicionar metas")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu adicionar metas{formato['padrao']}")
             funcoes.adicionar_meta()
+            input("Pressione enter para voltar para o menu\n")
 
         case 7:
-            print("Você escolheu ver metas")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu ver metas{formato['padrao']}")
             funcoes.ver_meta()
+            input("Pressione enter para voltar para o menu\n")
 
         case 8:
-            print("Você escolheu atualizar metas")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu atualizar metas{formato['padrao']}")
             funcoes.atualizar_meta()
+            input("Pressione enter para voltar para o menu\n")
 
         case 9:
-            print("Você escolheu sugestão de um treino aleatório")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu receber uma sugestao de exercicios aleatorios{formato['padrao']}")
             funcoes.sugestao_aleatoria3()
+            input("Pressione enter para voltar para o menu\n")
 
         case 10:
-            print("Você escolheu frase motivacionais")
+            os.system('cls')
+            print(f"{formato['negrito']}Você escolheu frase motivacionais{formato['padrao']}")
             funcoes.frase_motivacional()
+            input("Pressione enter para voltar para o menu\n")
 
         case 0:
-            print("Você escolheu encerrar o programa")
+            print(f"{formato['negrito']}Você escolheu encerrar o programa{formato['padrao']}")
             break
-
         case _: 
-            print("A opção digitada não se encontra no menu de opções")
-
+            print(f"{formato['negrito']}A opção digitada não se encontra no menu de opções{formato['padrao']}")
+            input("Pressione enter para voltar para o menu\n")
+    
+    os.system('cls')
