@@ -1,5 +1,7 @@
 import random
 
+
+
 def adicionar_wod():
     d = input("Data (DD/MM/AAAA): ")
     t = input("Tipo do treino: ")
@@ -7,23 +9,20 @@ def adicionar_wod():
     mov = input("Movimentos: ")
     with open("treino.txt", "a", encoding="utf-8") as f:  # adiciona no wods.csv os inputs acima
         f.write(f"{d};{t};{dur};{mov}\n")
-    print("treino adicionado com sucesso!")
+    print("treino adicionado com sucesso!")
 
 def ver_wod():
     try:
         with open("treino.txt", "r", encoding="utf-8") as f:  # faz a leitura do arquivo
-            linhas = f.readlines()  # conta quantas linhas possuem no arquivo
-        if len(linhas) == 0:
+            treinos = f.readlines()  # conta quantas linhas possuem no arquivo
+        if len(treinos) == 0:
             print("nao possui treinos")
             return
-        for i, linha in enumerate(linhas):
-            partes = linha.strip().split(", ")  # divide
-            d = partes[0]
-            t = partes[1]
-            dur = partes[2]
-            mov = ", ".join(partes[3:])
+        for i, treino in enumerate(treinos):
+                dados = treino.strip().split(";") # separa os movimentos do treino
+                if len(treino) >= 4:
+                    print(f"{i:^4} ---> Data: {dados[0]}\t Tipo: {dados[1]}\t Duração: {dados[2]}\t Movimentos: {dados[3]}")
 
-            print(f"{i+1}. {d}; {t}; {dur}; {mov}\n")
     except FileNotFoundError:
         print("arquivo não encontrado")
 
@@ -65,6 +64,8 @@ def editar_wod():
         print("arquivo não encontrado")
     except ValueError:
         print("digite um numero")
+
+        
 def excluir_wod():
     try:
         with open("treino.txt", "r", encoding="utf-8") as f:
@@ -100,6 +101,7 @@ def excluir_wod():
         print("arquivo não encontrado")
     except ValueError:
         print("entrada inválida")
+
 def adicionar_meta():
     obj = input("digite a meta desejada: ")
     prazo = input("digite o prazo (DD/MM/AAAA) para concluir a meta: ")
@@ -109,6 +111,7 @@ def adicionar_meta():
         f.write(f"{obj},{prazo},{status}\n")
 
     print("sua meta foi adicionada")
+
 def ver_meta():
     try:
         with open("meta.txt", "r", encoding="utf-8") as f:  # faz a leitura do arquivo
@@ -139,47 +142,11 @@ def frase_motivacional():
 
     except FileNotFoundError:
         print("arquivo frases.txt não encontrado")
-def atualizar_meta():
-    try:
-        with open("metas.txt", "r", encoding="utf-8") as f:
-            linhas = f.readlines()
 
-        if len(linhas) == 0:
-            print("Não existem metas cadastradas.")
-            return
-
-        for i, linha in enumerate(linhas):
-            dados = linha.strip().split(",")
-            obj, prazo, status = dados[0], dados[1], dados[2]
-            print(f"{i+1}. Meta: {obj}; Prazo: {prazo}; Status: {status}")
-
-        num_at = int(input("Qual meta você quer marcar como concluída?: ")) - 1
-
-        if num_at < 0 or num_at >= len(linhas):
-            print("Número inválido.")
-            return
-
-        dados = linhas[num_at].strip().split(",")
-
-        obj, prazo = dados[0], dados[1]
-        novo_status = "Concluido"
-        linhas[num_at] = f"{obj},{prazo},{novo_status}\n"
-
-        with open("metas.txt", "w", encoding="utf-8") as f:
-            f.writelines(linhas)
-
-        print("Meta atualizada com sucesso!")
-
-    except FileNotFoundError:
-        print("'metas.txt' não encontrado.")
-    except ValueError:
-        print("digite um número.")
-
-    
         
 
-def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
-    with open(file, "r",encoding="utf8") as arquivo:
+def filtro():  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
+    with open("treino.txt", "r",encoding="utf8") as arquivo:
         treinos = [treino.split(";") for treino in arquivo.readlines()] #transforma os treinos em uma lista de treino
     filtrado = treinos  # lista para armazenar os treinos filtrados
     filtros = input("Digite qual o filtro você deseja usar para buscar o treino:\n1. Data\n2. Tipo\n3. Duração\n4. Movimento\n").strip().replace(" ","").split(",")
@@ -247,9 +214,9 @@ def filtro(file):  # recebe o caminho do arquivo e retorna uma lista de treinos 
 
 
 
-def selecionar(file): #Retorna um treino selecionado em formado de uma lista
+def selecionar(): #Retorna um treino selecionado em formado de uma lista
     try:
-        with open(file, "r", encoding="utf8") as arquivo:
+        with open("treino.txt", "r", encoding="utf8") as arquivo:
             treinos = arquivo.readlines()
 
         chave = int(input(f"Digite:\n1-Para visualizar todos os treinos\n2-Para buscar o treino usando filtro:\n"))
@@ -263,7 +230,7 @@ def selecionar(file): #Retorna um treino selecionado em formado de uma lista
         
         #Visualizacao por filtro 
         elif chave == 2:
-            filtrados = filtro(file)
+            filtrados = filtro()
             for i, treino in enumerate(filtrados):
                 treino = treino.strip().split(";") 
                 if len(treino) >= 4:
@@ -278,6 +245,8 @@ def selecionar(file): #Retorna um treino selecionado em formado de uma lista
         print("O valor que voce digitou não é valido")
     except IndexError: 
         print("O índice digitado não foi encontrado")
+
+
 def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de acordo com o tipo escolhido pelo usuario.
     try:
         def sorteio(exercicios_salvos):
@@ -305,7 +274,6 @@ def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de aco
     except ValueError:
         print("Digite um número!")
         
-
 
 
 
