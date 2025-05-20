@@ -3,3 +3,4 @@
 16/05;braços;80;supino reto, supino inclinado
 15/05;perna;40;leg press, agachamento
 21/09;costa;90;sla
+22;maxilar;30 ;4
