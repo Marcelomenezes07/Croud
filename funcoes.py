@@ -13,6 +13,7 @@ def adicionar_wod():
     else:
         print("Nem todos os campos estão preenchidos")
 
+
 def ver_wod():
     try:
         with open("treino.txt", "r", encoding="utf-8") as f:  # faz a leitura do arquivo
@@ -99,21 +100,6 @@ def excluir_wod():
         print("entrada inválida")
 
 
-
-def frase_motivacional():
-    try:
-        with open("frases.txt", "r", encoding="utf-8") as f:
-            frases = f.readlines()
-    
-        frase = random.choice(frases).strip()
-        print("\n Frase motivacional do dia:")
-        print(f"  {frase}\n")
-
-    except FileNotFoundError:
-        print("arquivo frases.txt não encontrado")
-
-        
-
 def filtro():  # recebe o caminho do arquivo e retorna uma lista de treinos filtrados
     try:
         with open("treino.txt", "r", encoding="utf8") as arquivo:
@@ -191,76 +177,6 @@ def filtro():  # recebe o caminho do arquivo e retorna uma lista de treinos filt
     except ValueError: 
         print("Digite corretamente a opção citada")
 
-def selecionar(): #Retorna um treino selecionado em formado de uma lista
-    try:
-        with open("treino.txt", "r", encoding="utf8") as arquivo:
-            treinos = arquivo.readlines()
-
-        chave = int(input(f"Digite:\n1-Para visualizar todos os treinos\n2-Para buscar o treino usando filtro:\n"))
-        # Visualizacao completa
-        if chave == 1:
-            for i, treino in enumerate(treinos):
-                dados = treino.strip().split(";") # separa os movimentos do treino
-                if len(treino) >= 4:
-                    print(f"Index: {i} ---> Data: {dados[0]} | Tipo: {dados[1]} | Duração: {dados[2]} | Movimentos: {dados[3]}")
-            treino_selecionado = treinos[int(input("Digite o index do treino que voce deseja selecionar: "))]
-        
-        #Visualizacao por filtro 
-        elif chave == 2:
-            filtrados = filtro()
-            for i, treino in enumerate(filtrados):
-                treino = treino.strip().split(";") 
-                if len(treino) >= 4:
-                    print(f"Index {i} ---> Data: {treino[0]} | Tipo: {treino[1]} | Duração: {treino[2]} | Movimentos: {treino[3]}")
-            treino_selecionado = filtrados[int(input("Selecione o treino de acordo com o index dele:"))]
-        else:
-            print("O valor digitado nao corresponde as opções acima")
-        
-        return treino_selecionado
-    
-    except ValueError:
-        print("O valor que voce digitou não é valido")
-    except IndexError: 
-        print("O índice digitado não foi encontrado")
-
-
-def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de acordo com o tipo escolhido pelo usuario.
-    try:
-        def sorteio(exercicios_salvos):
-            if len(exercicios_salvos) > 3:
-                selecionados = []
-                for _ in range(3):  # Seleciona 3 aleatórios sem repetição
-                    indice = random.randint(0, len(exercicios_salvos) - 1)
-                    selecionados.append(exercicios_salvos.pop(indice))
-                return selecionados
-            else:
-                return exercicios_salvos
-
-
-        # 0 - ombro/ 1- Peito/ 2- costas/ 3- braço/ 4-pernas
-        sugestoes = [["desenvolvimento","elevação lateral", "elevação frontal","Crucifixo inverso","Remada Alta","Pulley Articulado"],["supino reto","supino inclinado","Crucifixo reto","Crossover","Banch press","Crucifixo inclinado"],["remada alta","puxada","pulldown","Remada baixa", "Remada curvada","Levantamento terra"],["Rosca","Triceps Françês","Triceps na corda","Rosca Scott","Triceps testa","Mergulho"],["leg press", "agachamento livre", "agachamento com barra","flexora","Abdutora","adutora"]]
-        
-        
-        print("Digite o treino que voce quer fazer:\n1- Ombro\n2- Peito\n3- costas\n4- Braço\n5- Pernas")
-        opcao = int(input("Digite o numero que corresponde a opcao: ")) -1
-        
-        if 0 <= opcao < len(sugestoes): 
-            exercicios = sorteio(sugestoes[opcao])
-            for i, exercicio in enumerate(exercicios):
-                print(f"{i+1}- {exercicio}")
-        else: 
-            print("Voce nao inseriu uma opção válida")
-    except ValueError:
-        print("Digite um número!")
-
-def exibir(treinos):
-    for i, treino in enumerate(treinos):
-        dados = treino.strip().split(";")  # separa os dados do treino
-        if len(dados) >= 4:
-            print(f"{i+1:^4} ---> Data: {dados[0]}\t Tipo: {dados[1]}\t Duração: {dados[2]} min\t Movimentos: {dados[3]}")
-
-
-
 
 # Funcoes meta:
 
@@ -283,6 +199,25 @@ def adicionar_meta():
     with open("metas.txt", "a", encoding="utf-8") as f:
         f.write(f"{obj};{prazo};{status}\n")
     print("Sua meta foi adicionada.")
+
+
+def ver_meta():
+    try:
+        with open("metas.txt", "r", encoding="utf-8") as f:
+            linhas = f.readlines()
+        if not linhas:
+            print("Não possui metas.")
+            return
+        for i, linha in enumerate(linhas):
+            partes = linha.strip().split(";")
+            if len(partes) == 3:
+                obj, prazo, status = partes
+                print(f"{i+1}. {obj} - prazo: {prazo} - status: {status}")
+            else:
+                print(f"{i+1}. [Formato inválido]")
+    except FileNotFoundError:
+        print("Arquivo 'metas.txt' não encontrado.")
+
 
 def atualizar_meta():
     try:
@@ -343,19 +278,88 @@ def atualizar_meta():
         print("Entrada inválida. Por favor, digite um número válido.")
 
 
-def ver_meta():
+def sugestao_aleatoria3(): # Retorna uma lista de 3 exercicios aleatorios de acordo com o tipo escolhido pelo usuario.
     try:
-        with open("metas.txt", "r", encoding="utf-8") as f:
-            linhas = f.readlines()
-        if not linhas:
-            print("Não possui metas.")
-            return
-        for i, linha in enumerate(linhas):
-            partes = linha.strip().split(";")
-            if len(partes) == 3:
-                obj, prazo, status = partes
-                print(f"{i+1}. {obj} - prazo: {prazo} - status: {status}")
+        def sorteio(exercicios_salvos):
+            if len(exercicios_salvos) > 3:
+                selecionados = []
+                for _ in range(3):  # Seleciona 3 aleatórios sem repetição
+                    indice = random.randint(0, len(exercicios_salvos) - 1)
+                    selecionados.append(exercicios_salvos.pop(indice))
+                return selecionados
             else:
-                print(f"{i+1}. [Formato inválido]")
+                return exercicios_salvos
+
+
+        # 0 - ombro/ 1- Peito/ 2- costas/ 3- braço/ 4-pernas
+        sugestoes = [["desenvolvimento","elevação lateral", "elevação frontal","Crucifixo inverso","Remada Alta","Pulley Articulado"],["supino reto","supino inclinado","Crucifixo reto","Crossover","Banch press","Crucifixo inclinado"],["remada alta","puxada","pulldown","Remada baixa", "Remada curvada","Levantamento terra"],["Rosca","Triceps Françês","Triceps na corda","Rosca Scott","Triceps testa","Mergulho"],["leg press", "agachamento livre", "agachamento com barra","flexora","Abdutora","adutora"]]
+        
+        
+        print("Digite o treino que voce quer fazer:\n1- Ombro\n2- Peito\n3- costas\n4- Braço\n5- Pernas")
+        opcao = int(input("Digite o numero que corresponde a opcao: ")) -1
+        
+        if 0 <= opcao < len(sugestoes): 
+            exercicios = sorteio(sugestoes[opcao])
+            for i, exercicio in enumerate(exercicios):
+                print(f"{i+1}- {exercicio}")
+        else: 
+            print("Voce nao inseriu uma opção válida")
+    except ValueError:
+        print("Digite um número!")
+
+
+def frase_motivacional():
+    try:
+        with open("frases.txt", "r", encoding="utf-8") as f:
+            frases = f.readlines()
+    
+        frase = random.choice(frases).strip()
+        print("\n Frase motivacional do dia:")
+        print(f"  {frase}\n")
+
     except FileNotFoundError:
-        print("Arquivo 'metas.txt' não encontrado.")
+        print("arquivo frases.txt não encontrado")
+
+
+
+# Funções auxiliares: 
+
+def selecionar(): #Retorna um treino selecionado em formado de uma lista
+    try:
+        with open("treino.txt", "r", encoding="utf8") as arquivo:
+            treinos = arquivo.readlines()
+
+        chave = int(input(f"Digite:\n1-Para visualizar todos os treinos\n2-Para buscar o treino usando filtro:\n"))
+        # Visualizacao completa
+        if chave == 1:
+            for i, treino in enumerate(treinos):
+                dados = treino.strip().split(";") # separa os movimentos do treino
+                if len(treino) >= 4:
+                    print(f"Index: {i} ---> Data: {dados[0]} | Tipo: {dados[1]} | Duração: {dados[2]} | Movimentos: {dados[3]}")
+            treino_selecionado = treinos[int(input("Digite o index do treino que voce deseja selecionar: "))]
+        
+        #Visualizacao por filtro 
+        elif chave == 2:
+            filtrados = filtro()
+            for i, treino in enumerate(filtrados):
+                treino = treino.strip().split(";") 
+                if len(treino) >= 4:
+                    print(f"Index {i} ---> Data: {treino[0]} | Tipo: {treino[1]} | Duração: {treino[2]} | Movimentos: {treino[3]}")
+            treino_selecionado = filtrados[int(input("Selecione o treino de acordo com o index dele:"))]
+        else:
+            print("O valor digitado nao corresponde as opções acima")
+        
+        return treino_selecionado
+    
+    except ValueError:
+        print("O valor que voce digitou não é valido")
+    except IndexError: 
+        print("O índice digitado não foi encontrado")
+
+
+def exibir(treinos):
+    for i, treino in enumerate(treinos):
+        dados = treino.strip().split(";")  # separa os dados do treino
+        if len(dados) >= 4:
+            print(f"{i+1:^4} ---> Data: {dados[0]}\t Tipo: {dados[1]}\t Duração: {dados[2]} min\t Movimentos: {dados[3]}")
+
