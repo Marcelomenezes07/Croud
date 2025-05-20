@@ -12,7 +12,7 @@ while True:
     #Placa do menu 
     interface.exibir_menu()
     #menu de opções
-    print("\n1-Adicionar wod\n2-Ver Wod\n3-Editar Wod\n4-Excluir Wod\n5-filtrar wod\n6-Adicionar metas\n7-Ver Metas\n8-Atualizar metas\n9-Sugestao de wod aleatorio\n10- Frases Motivacionais para treinar inspirado\n0- Para sair do programa")
+    print("\n 1-Adicionar wod\n 2-Ver Wod\n 3-Editar Wod\n 4-Excluir Wod\n 5-Filtrar wod\n 6-Adicionar metas\n 7-Ver Metas\n 8-Atualizar metas\n 9-Sugestao de wod aleatorio\n10-Frases Motivacionais para treinar inspirado\n0- Para sair do programa")
     try: 
         opcao = int(input("Digite o que voce vai querer fazer: "))
     except ValueError:

@@ -2,4 +2,4 @@
 22/04;costas;50;puxada alta, remada
 16/05;braços;80;supino reto, supino inclinado
 15/05;perna;40;leg press, agachamento
-12/10/2004;ombro;40;elevação lateral, supino reto
+21/09;costa;90;sla
