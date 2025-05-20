@@ -77,6 +77,6 @@ while True:
 
         case _: 
             print(f"{formato['negrito']}A opção digitada não se encontra no menu de opções{formato['padrao']}")
-
+            
     input("Pressione enter para voltar para o menu\n")
     os.system('cls')
