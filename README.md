@@ -47,10 +47,9 @@ Obs: Para acessar a funcionalidade voce deve digitar a opção correspondente a 
    Se a função não for intuitiva:
    - Escreva na linha do `def` o que a função **recebe** (e **tipo**: `str`, `list`, etc.).
    - Especifique o que a função **retorna** (e **tipo** também).
-   - Exemplo:
 
 4. **Atualizações:**  
-   - Ao finalizar uma alteração, **avise no grupo**.
+   - Ao finalizar uma alteração, **avise no grupo do WhatsApp**.
    - Faça o **push no GitHub** imediatamente.
    - Em caso de dúvidas, pergunte no grupo antes de avançar.
 
