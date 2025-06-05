@@ -1,5 +1,0 @@
-21/04;ombros;30;elevação lateral, desenvolvimento
-22/04;costas;50;puxada alta, remada
-16/05;braços;80;supino reto, supino inclinado
-07/02;costas;90;puxada
-32/09;costas;10;leg press

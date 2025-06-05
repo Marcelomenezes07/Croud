@@ -31,36 +31,43 @@ def ver_wod():
 
 
 def editar_wod():
+    with open("treino.txt", "r", encoding="utf-8") as f:
+        linhas = [linha.strip() for linha in f if linha.strip()]
+
+    if not linhas:
+        print("Nenhum treino cadastrado.")
+        return
+
+    # Exibir todos os treinos numerados
+    for i, treino in enumerate(linhas, 1):
+        print(f"{i}. {treino}")
+
     try:
-        with open("treino.txt", "r", encoding="utf-8") as f:
-            linhas = f.readlines()
-        if len(linhas) == 0:
-            print("não existem treinos cadastrados")
+        escolha = int(input("Digite o número do treino que deseja editar: "))
+        if escolha < 1 or escolha > len(linhas):
+            print("Número inválido.")
             return
-
-        
-        n_tro = linhas.index(selecionar()) #n_tro é o numero de troca
-            # A funcao selecionar retorna o treino que o usuario irá selecionar de forma interativa, após isso é visto o index dela no conjunto total de treino 
-        if n_tro < 0 or n_tro >= len(linhas):
-            print("digite outro numero")
-            return
-
-        nd = input("digite a nova data: ")
-        nt = input("digite o novo tipo: ")
-        ndur = input("digite a nova duração: ")
-        nmov = input("digite os novos movimentos (separados por vírgula): ")
-
-        nova_linha = f"{nd};{nt};{ndur};{nmov}\n" #
-        linhas[n_tro] = nova_linha
-
-        with open("treino.txt", "w", encoding="utf-8") as f:
-            f.writelines(linhas)
-        print("wod editado com sucesso")
-
-    except FileNotFoundError:
-        print("arquivo não encontrado")
     except ValueError:
-        print("digite um numero")
+        print("Entrada inválida.")
+        return
+    print("Ok!\nDigite agora o novo treino:\n")
+    d = input("Data (DD/MM/AAAA): ")
+    t = input("Tipo do treino: ")
+    dur = input("Duração em min: ")
+    mov = input("Movimentos: ")
+    if d and t and dur and mov:
+        novo_treino = "{d};{t};{dur};{mov}\n"
+        print("treino adicionado com sucesso!")
+    else:
+        print("Nem todos os campos estão preenchidos")
+
+    linhas[escolha - 1] = novo_treino
+
+    with open("treino.txt", "w", encoding="utf-8") as f:
+        for linha in linhas:
+            f.write(linha + "\n")
+
+    print("Treino atualizado com sucesso.")
 
         
 def excluir_wod():
