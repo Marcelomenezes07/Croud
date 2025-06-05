@@ -324,37 +324,44 @@ def frase_motivacional():
 
 # Funções auxiliares: 
 
-def selecionar(): #Retorna um treino selecionado em formado de uma lista
+def selecionar():
     try:
         with open("treino.txt", "r", encoding="utf8") as arquivo:
             treinos = arquivo.readlines()
 
-        chave = int(input(f"Digite:\n1-Para visualizar todos os treinos\n2-Para buscar o treino usando filtro:\n"))
-        # Visualizacao completa
+        chave = int(input("Digite:\n1 - Para visualizar todos os treinos\n2 - Para buscar o treino usando filtro:\n"))
+
         if chave == 1:
             for i, treino in enumerate(treinos):
-                dados = treino.strip().split(";") # separa os movimentos do treino
-                if len(treino) >= 4:
+                dados = treino.strip().split(";")
+                if len(dados) >= 4:
                     print(f"Index: {i} ---> Data: {dados[0]} | Tipo: {dados[1]} | Duração: {dados[2]} | Movimentos: {dados[3]}")
-            treino_selecionado = treinos[int(input("Digite o index do treino que voce deseja selecionar: "))]
-        
-        #Visualizacao por filtro 
+            return int(input("Digite o index do treino que deseja selecionar: "))
+
         elif chave == 2:
             filtrados = filtro()
+            if not filtrados:
+                print("Nenhum treino encontrado.")
+                return None
+
             for i, treino in enumerate(filtrados):
-                treino = treino.strip().split(";") 
-                if len(treino) >= 4:
-                    print(f"Index {i} ---> Data: {treino[0]} | Tipo: {treino[1]} | Duração: {treino[2]} | Movimentos: {treino[3]}")
-            treino_selecionado = filtrados[int(input("Selecione o treino de acordo com o index dele:"))]
+                dados = treino.strip().split(";")
+                if len(dados) >= 4:
+                    print(f"Index {i} ---> Data: {dados[0]} | Tipo: {dados[1]} | Duração: {dados[2]} | Movimentos: {dados[3]}")
+            index_filtro = int(input("Selecione o treino de acordo com o index mostrado: "))
+            treino_filtro = filtrados[index_filtro]
+
+            # encontrar o índice real do treino no arquivo
+            for i, linha in enumerate(treinos):
+                if linha.strip() == treino_filtro.strip():
+                    return i
+
         else:
-            print("O valor digitado nao corresponde as opções acima")
-        
-        return treino_selecionado
-    
-    except ValueError:
-        print("O valor que voce digitou não é valido")
-    except IndexError: 
-        print("O índice digitado não foi encontrado")
+            print("Opção inválida.")
+            return None
+    except (ValueError, IndexError):
+        print("Erro ao selecionar treino.")
+        return None
 
 
 def exibir(treinos):
